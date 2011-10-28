@@ -79,5 +79,27 @@
             name="Leon">
       </category>
    </extension>
+   <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            class="io.leon.eclipseintegration.ui.properties.LeonPropertyPage"
+            id="io.leon.eclipseintegration.ui.preferences"
+            name="Leon"
+            selectionFilter="single">
+         <filter
+               name="open"
+               value="true">
+         </filter>
+         <enabledWhen>
+               <adapt
+                     type="org.eclipse.core.resources.IProject">
+               </adapt>
+         </enabledWhen>
+         <filter
+               name="nature"
+               value="io.leon.eclipseintegration.ui.leonnature">
+         </filter>
+      </page>
+   </extension>
 
 </plugin>

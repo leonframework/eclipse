@@ -2,6 +2,7 @@ package io.leon.eclipseintegration.ui.contentassist;
 
 import io.leon.eclipseintegration.ui.Activator;
 import io.leon.eclipseintegration.ui.natures.LeonNature;
+import io.leon.eclipseintegration.ui.properties.PreferencesHandler;
 
 import java.io.File;
 import java.io.InputStream;
@@ -64,15 +65,17 @@ public class LeonJavaScriptCompletionProposalComputer implements
 		if (input instanceof IPathEditorInput) {
 			IPathEditorInput pathInput = (IPathEditorInput) input;
 			IPath path = pathInput.getPath();
-			String filename = path.toOSString();
-
-			// TODO: later specified via project preferences
-			if (filename == null || !filename.endsWith(File.separator + "config.js")) {
-				return NO_PROPOSALS;
-			}
-
+			
 			IProject project = ((IFileEditorInput) input).getFile()
 					.getProject();
+			
+			String filename = File.separator + path.makeRelativeTo(project.getLocation());
+			
+			String configurationFile = new PreferencesHandler(project).getPreferences().getConfigurationFile();
+
+			if (filename == null || !filename.equals(configurationFile)) {
+				return NO_PROPOSALS;
+			}
 
 			try {
 				boolean hasLeonNature = project.hasNature(LeonNature.NATURE_ID);
