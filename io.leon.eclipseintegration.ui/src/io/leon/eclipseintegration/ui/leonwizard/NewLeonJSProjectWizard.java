@@ -9,7 +9,6 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 public class NewLeonJSProjectWizard extends AbstractHandler {
 
-	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		LeonWizard wizard = new LeonWizard();
 		WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);

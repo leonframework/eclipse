@@ -36,7 +36,7 @@
       </image>
    </extension>
    <extension
-         id="id1"
+         id="proposals"
          point="org.eclipse.wst.jsdt.ui.javaCompletionProposalComputer">
       <javaCompletionProposalComputer
             activate="true"

@@ -3,19 +3,14 @@ package io.leon.eclipseintegration.ui.leonwizard;
 import io.leon.eclipseintegration.ui.Activator;
 import io.leon.eclipseintegration.ui.natures.LeonNature;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -41,61 +36,17 @@ public class LeonWizard extends BasicNewProjectResourceWizard implements
 
 		// create web folder structure and config files
 		if (project != null) {
-			BufferedReader bis = null;
-			FileReader fis = null;
-			BufferedWriter bos = null;
-			FileWriter fos = null;
-
-			String errorMessage = "Error creating web folder";
+			InputStream is = null;
+			String errorMessage = "Error extracting leon project content";
 
 			try {
 				File projectFolder = project.getLocation().toFile();
-
-				File webFolder = new File(projectFolder.getAbsolutePath()
-						+ File.separator + "www");
-				File configJs = new File(projectFolder.getAbsolutePath()
-						+ File.separator + "config.js");
-				File indexHtml = new File(webFolder.getAbsolutePath()
-						+ File.separator + "index.html");
-
-				if (!webFolder.exists()) {
-					webFolder.mkdir();
-				}
-
-				if (webFolder.exists() && !indexHtml.exists()) {
-					indexHtml.createNewFile();
-				}
-
-				if (!configJs.exists()) {
-					errorMessage = "Error creating leon config file";
-
-					configJs.createNewFile();
-
-					errorMessage = "Error reading leon config file from plugin";
-
-					URL configResource = getClass().getResource("config.js");
-					URL configFile = FileLocator.toFileURL(configResource);
-
-					bis = new BufferedReader(fis = new FileReader(
-							configFile.getFile()));
-//					long length = configFile.getFile().length();
-					
-					StringBuffer buf  = new StringBuffer();
-		            String zeile      = new String();
-
-		            while((zeile = bis.readLine()) != null)
-		            {
-		                buf.append(zeile);
-		                buf.append("\n");
-		            }
-
-					errorMessage = "Error writing leon config file content";
-
-					bos = new BufferedWriter(fos = new FileWriter(
-							configJs));
-					bos.write(buf.toString());
-					bos.flush();
-				}
+				is = getClass().getResourceAsStream(
+						"leonproject.zip");
+				new UnZipper().upzip(is, new File(projectFolder.getAbsolutePath()));
+				
+				errorMessage = "Error closing file stream";
+				is.close();
 			} catch (IOException e) {
 				Status status = new Status(Status.ERROR, Activator.PLUGIN_ID,
 						errorMessage, e);
@@ -104,35 +55,8 @@ public class LeonWizard extends BasicNewProjectResourceWizard implements
 						"Error creating Leon project", errorMessage);
 			} finally {
 				try {
-					if (fis != null) {
-						fis.close();
-					}
-				} catch (IOException e) {
-					Status status = new Status(Status.ERROR,
-							Activator.PLUGIN_ID, "Error closing file stream", e);
-					Activator.getDefault().getLog().log(status);
-				}
-				try {
-					if (bis != null) {
-						bis.close();
-					}
-				} catch (IOException e) {
-					Status status = new Status(Status.ERROR,
-							Activator.PLUGIN_ID, "Error closing file stream", e);
-					Activator.getDefault().getLog().log(status);
-				}
-				try {
-					if (fos != null) {
-						fos.close();
-					}
-				} catch (IOException e) {
-					Status status = new Status(Status.ERROR,
-							Activator.PLUGIN_ID, "Error closing file stream", e);
-					Activator.getDefault().getLog().log(status);
-				}
-				try {
-					if (bos != null) {
-						bos.close();
+					if (is != null) {
+						is.close();
 					}
 				} catch (IOException e) {
 					Status status = new Status(Status.ERROR,

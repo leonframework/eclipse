@@ -1,5 +1,13 @@
 package io.leon.eclipseintegration.ui;
 
+import java.io.IOException;
+import java.net.URL;
+
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -13,7 +21,7 @@ public class Activator extends AbstractUIPlugin {
 
 	// The shared instance
 	private static Activator plugin;
-	
+
 	/**
 	 * The constructor
 	 */
@@ -22,7 +30,10 @@ public class Activator extends AbstractUIPlugin {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext
+	 * )
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
@@ -31,7 +42,10 @@ public class Activator extends AbstractUIPlugin {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext
+	 * )
 	 */
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
@@ -40,11 +54,30 @@ public class Activator extends AbstractUIPlugin {
 
 	/**
 	 * Returns the shared instance
-	 *
+	 * 
 	 * @return the shared instance
 	 */
 	public static Activator getDefault() {
 		return plugin;
 	}
 
+	@Override
+	public void initializeImageRegistry(ImageRegistry imageRegistry) {
+		try
+		{
+		URL url = FileLocator.toFileURL(new URL(getBundle().getEntry("/")
+				+ "icons/proposal16.gif"));
+		imageRegistry.put("leonProposalIcon", ImageDescriptor.createFromURL(url));
+		}
+		catch (IOException e) {
+			Status status = new Status(Status.ERROR, Activator.PLUGIN_ID,
+					"Error reading leon icons", e);
+			getDefault().getLog().log(status);
+		}
+	}
+	
+	public static Image getImage(String key)
+	{
+		return getDefault().getImageRegistry().get(key);
+	}
 }
