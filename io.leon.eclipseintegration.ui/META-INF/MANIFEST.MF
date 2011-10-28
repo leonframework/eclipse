@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Leon Eclipseintegration UI Plugin
+Bundle-Name: Leon Eclipse integration UI Plugin
 Bundle-SymbolicName: io.leon.eclipseintegration.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: io.leon.eclipseintegration.ui.Activator

@@ -91,7 +91,8 @@ public class LeonPropertyPage extends PropertyPage {
 									&& selection[0] instanceof IFile) {
 								IFile file = (IFile) selection[0];
 								if (file.getFileExtension().equalsIgnoreCase(
-										"js")) {
+										"js") || file.getFileExtension().equalsIgnoreCase(
+												"coffee")) {
 									return new Status(IStatus.OK,
 											Activator.PLUGIN_ID, IStatus.OK,
 											"", null);
@@ -100,7 +101,7 @@ public class LeonPropertyPage extends PropertyPage {
 
 							return new Status(IStatus.ERROR,
 									Activator.PLUGIN_ID, IStatus.OK,
-									"Please select a javascript file", null);
+									"Please select a valid file", null);
 						}
 					});
 					int result = dialog.open();
