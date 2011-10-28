@@ -1,5 +1,7 @@
 package io.leon.eclipseintegration.ui.properties;
 
+import java.io.File;
+
 import io.leon.eclipseintegration.ui.Activator;
 
 import org.eclipse.core.resources.IProject;
@@ -19,7 +21,7 @@ public class PreferencesHandler {
 				.getNode(Activator.PLUGIN_ID);
 
 		leonPreferences = new LeonPreferences();
-		leonPreferences.setWebConfigurationFile(projectPreferences.get(CONFIGURATION_FILE, "config.js"));
+		leonPreferences.setWebConfigurationFile(projectPreferences.get(CONFIGURATION_FILE, File.separator + "config.js"));
 	}
 
 	public LeonPreferences getPreferences() {
