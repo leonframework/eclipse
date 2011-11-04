@@ -7,7 +7,7 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-public class NewLeonJSProjectWizard extends AbstractHandler {
+public class NewLeonProjectWizard extends AbstractHandler {
 
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		LeonWizard wizard = new LeonWizard();
