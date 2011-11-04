@@ -38,8 +38,6 @@ public class LeonPropertyPage extends PropertyPage {
 	private Text webConfigurationFileInput;
 
 	public LeonPropertyPage() {
-		// super("LEON");
-		// setDescription("Leon web container configuration");
 		noDefaultAndApplyButton();
 
 	}

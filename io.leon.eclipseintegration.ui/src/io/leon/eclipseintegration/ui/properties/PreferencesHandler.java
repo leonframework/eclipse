@@ -1,12 +1,15 @@
 package io.leon.eclipseintegration.ui.properties;
 
-import java.io.File;
-
 import io.leon.eclipseintegration.ui.Activator;
+
+import java.io.File;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Display;
 import org.osgi.service.prefs.BackingStoreException;
 
 public class PreferencesHandler {
@@ -34,10 +37,11 @@ public class PreferencesHandler {
 		try {
 			projectPreferences.flush();
 		} catch (BackingStoreException e) {
-			// TODO: rollback?
-			//TODO log / show error
-//			MessageDialog.openError(Display.getDefault().getActiveShell(),
-//					"Error creating Leon project", errorMessage);
+			Status status = new Status(Status.ERROR, Activator.PLUGIN_ID,
+					"Error saving preferences", e);
+			Activator.getDefault().getLog().log(status);
+			MessageDialog.openError(Display.getDefault().getActiveShell(),
+					"Error creating Leon project", e.getMessage());
 		}
 	}
 }
