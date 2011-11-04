@@ -69,9 +69,11 @@ public class LeonJavaScriptCompletionProposalComputer implements
 			IProject project = ((IFileEditorInput) input).getFile()
 					.getProject();
 			
-			String filename = File.separator + path.makeRelativeTo(project.getLocation());
+			// from path.makeRelativeTo(project.getLocation()) the returned file always has "/" as separator, so use this
+			String filename = "/" + path.makeRelativeTo(project.getLocation());
 			
 			String configurationFile = new PreferencesHandler(project).getPreferences().getConfigurationFile();
+			configurationFile = configurationFile.replace("\\", "/");
 
 			if (filename == null || !filename.equals(configurationFile)) {
 				return NO_PROPOSALS;
