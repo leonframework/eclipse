@@ -53,7 +53,7 @@
                id="io.leon.eclipseintegration.ui.toolbar"
                label="Leon">
             <command
-                  commandId="io.leon.eclipseintegration.ui.newLeonJSProjectWizard"
+                  commandId="io.leon.eclipseintegration.ui.newLeonProjectWizard"
                   icon="icons/leon16.gif"
                   style="push">
             </command>
@@ -63,16 +63,16 @@
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="io.leon.eclipseintegration.ui.leonwizard.NewLeonJSProjectWizard"
-            commandId="io.leon.eclipseintegration.ui.newLeonJSProjectWizard">
+            class="io.leon.eclipseintegration.ui.leonwizard.NewLeonProjectWizard"
+            commandId="io.leon.eclipseintegration.ui.newLeonProjectWizard">
       </handler>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
       <command
             categoryId="io.leon.eclipseintegration.ui.category"
-            id="io.leon.eclipseintegration.ui.newLeonJSProjectWizard"
-            name="New Leon JS Project Wizard">
+            id="io.leon.eclipseintegration.ui.newLeonProjectWizard"
+            name="New Leon Project Wizard">
       </command>
       <category
             id="io.leon.eclipseintegration.ui.category"
