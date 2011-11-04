@@ -25,11 +25,12 @@ public class LeonTemplateProposal extends TemplateProposal {
 			String htmlDocu = documentation.replaceAll("\\n", "<br/>");
 			buffer.append(htmlDocu);
 			buffer.append("<br/>");
-			buffer.append("<br/>");
+//			buffer.append("<br/>");
 		}
 		
-		String formattedPattern = super.getAdditionalProposalInfo();
-		buffer.append(formattedPattern);
+		// Add pattern to description
+//		String formattedPattern = super.getAdditionalProposalInfo();
+//		buffer.append(formattedPattern);
 		return buffer.toString();
 	}
 }
